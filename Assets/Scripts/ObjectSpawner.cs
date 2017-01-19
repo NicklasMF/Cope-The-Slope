@@ -9,7 +9,7 @@ public class ObjectSpawner : MonoBehaviour {
 	float maxDistanceBetweenObjects = 7f;
 	float minX, maxX;
 	float lastObjectPositionZ;
-	float controlX;
+
 	GameObject[] objects;
 	GameObject player;
 
@@ -62,6 +62,7 @@ public class ObjectSpawner : MonoBehaviour {
 
 						temp.z += Random.Range(minDistanceBetweenObjects, maxDistanceBetweenObjects);
 						temp.x = Random.Range(minX, maxX);
+						temp.y = 0;
 
 						lastObjectPositionZ = temp.z;
 						objects[i].transform.position = temp;

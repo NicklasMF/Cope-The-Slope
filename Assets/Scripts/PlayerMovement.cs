@@ -14,6 +14,8 @@ public class PlayerMovement : MonoBehaviour {
 	public int score;
 	private int bonusScore;
 
+	float diff;
+
 	GameObject playerPosition;
 	GameObject[] objectPositions;
 	GameObject[] slopePositions;
@@ -32,10 +34,10 @@ public class PlayerMovement : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
 		if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
 			move = true;
 		}
+
 
 		if (move && !dead) {
 			if (speed < startSpeed) {				
@@ -44,15 +46,12 @@ public class PlayerMovement : MonoBehaviour {
 			speed += acceleration * Time.deltaTime;
 
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-			float diff = ray.origin.x - transform.position.x;
+			diff = ray.origin.x - transform.position.x;
 
 			//Debug.Log(Mathf.Abs(diff));
-
 			transform.Translate(new Vector3(diff * 0.05f ,0, speed * Time.deltaTime));
 		}
-
 		score = bonusScore + (int) (transform.position.z / 10);
-
 	}
 
 	void OnTriggerEnter(Collider other) {
@@ -76,6 +75,7 @@ public class PlayerMovement : MonoBehaviour {
 		GameObject.Find("Object Spawner").gameObject.GetComponent<ObjectSpawner>().CreateClouds();
 		GameObject.Find("Background Spawner").gameObject.GetComponent<BGSpawner>().CreateBackgrounds();
 		transform.position = new Vector3(0f, transform.position.y, 0f);
+		gameObject.GetComponent<TrailRenderer>().Clear();
 		move = true;
 	}
 

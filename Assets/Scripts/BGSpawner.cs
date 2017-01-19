@@ -7,11 +7,11 @@ public class BGSpawner : MonoBehaviour {
 	float lastZ;
 
 	void Start() {
+		backgrounds = GameObject.FindGameObjectsWithTag("Background");
 		GetBackgroundsAndSetLastY();
 	}
 
 	void GetBackgroundsAndSetLastY() {
-		backgrounds = GameObject.FindGameObjectsWithTag("Background");
 		lastZ = backgrounds[0].transform.position.z;
 
 		for (int i = 1; i < backgrounds.Length; i++) {
@@ -24,6 +24,7 @@ public class BGSpawner : MonoBehaviour {
 	public void CreateBackgrounds() {
 		//backgrounds = GameObject.FindGameObjectsWithTag("Background");
 		backgrounds[0].transform.position = new Vector3(backgrounds[0].transform.position.x, backgrounds[0].transform.position.y, -20f);
+		lastZ = 80f;
 			
 		for (int i = 1; i < backgrounds.Length; i++) {
 			backgrounds[i].transform.position = new Vector3(backgrounds[0].transform.position.x, backgrounds[0].transform.position.y, i * backgrounds[i].transform.localScale.z - 20f);
