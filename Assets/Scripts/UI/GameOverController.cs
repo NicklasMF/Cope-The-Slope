@@ -17,11 +17,9 @@ public class GameOverController : MonoBehaviour {
 		txtBest.text = PlayerPrefs.GetInt("bestScore").ToString();
 	}
 
-	void Update() {
-		if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
-			GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().Restart();
-			gameObject.SetActive(false);
-			GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>().gameplayUI.SetActive(true);
-		}
+	public void RestartGame() {
+		GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().Restart(true);
+		gameObject.SetActive(false);
+		GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>().gameplayUI.SetActive(true);
 	}
 }

@@ -3,21 +3,22 @@ using System.Collections;
 
 public class ObjectSpawner : MonoBehaviour {
 
-	[SerializeField] GameObject[] collectables;
 
 	float minDistanceBetweenObjects = 3f;
 	float maxDistanceBetweenObjects = 7f;
+	[SerializeField] float collectableDistance = 25f;
 	float minX, maxX;
-	float lastObjectPositionZ;
+	float lastObjectPositionZ, lastCollectablePositionZ;
 
 	GameObject[] objects;
+	GameObject[] collectables;
 	GameObject player;
 
 	void Start() {
 		objects = GameObject.FindGameObjectsWithTag("Object");
+		collectables = GameObject.FindGameObjectsWithTag("BonusPoint");
 		SetMinAndMaxX();
 		CreateClouds();
-
 	}
 
 	void Shuffle(GameObject[] arrayToShuffle) {
@@ -34,11 +35,22 @@ public class ObjectSpawner : MonoBehaviour {
 		float positionZ = 10f;
 		for (int i = 0; i < objects.Length; i++) {
 			Vector3 temp = objects[i].transform.position;
-			temp.z = positionZ;
-			temp.x = Random.Range(minX, maxX);
+			temp = new Vector3(Random.Range(minX, maxX), 0 ,positionZ);
 			lastObjectPositionZ = positionZ;
 			objects[i].transform.position = temp;
 			positionZ += Random.Range(minDistanceBetweenObjects, maxDistanceBetweenObjects);
+		}
+		CreateCollectables();
+	}
+
+	void CreateCollectables() {
+		float positionZ = 30f;
+		for (int i = 0; i < collectables.Length; i++) {
+			Vector3 temp = collectables[i].transform.position;
+			temp = new Vector3(Random.Range(minX, maxX), 0, positionZ + Random.Range(collectableDistance, collectableDistance * 2));
+			lastCollectablePositionZ = positionZ;
+			collectables[i].transform.position = temp;
+			positionZ += Random.Range(collectableDistance, collectableDistance * 2);
 		}
 	}
 
@@ -53,7 +65,6 @@ public class ObjectSpawner : MonoBehaviour {
 		if (other.tag == "Object") {
 			if (other.transform.position.z == lastObjectPositionZ) {
 				Shuffle(objects);
-				//Shuffle(collectables);
 
 				Vector3 temp = other.transform.position;
 
@@ -70,9 +81,30 @@ public class ObjectSpawner : MonoBehaviour {
 						
 					}
 				}
+			}
+		} else if (other.tag == "BonusPoint") {
+			if (other.transform.position.z == lastCollectablePositionZ) {
+				Debug.Log("Bonus");
+				Vector3 temp = other.transform.position;
+
+				for (int i = 0; i<collectables.Length; i++) {
+					if (!collectables[i].activeInHierarchy) {
+
+						temp.z = Random.Range(collectableDistance, collectableDistance * 2);
+						temp.x = Random.Range(minX, maxX);
+						temp.y = 0;
+
+						lastCollectablePositionZ = temp.z;
+						collectables[i].transform.position = temp;
+						collectables[i].SetActive(true);
+
+					}
+				}
+
 
 			}
 		}
+
 	}
 
 }

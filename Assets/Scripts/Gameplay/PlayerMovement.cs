@@ -20,12 +20,6 @@ public class PlayerMovement : MonoBehaviour {
 	GameObject[] objectPositions;
 	GameObject[] slopePositions;
 
-	void Awake() {
-		if (!PlayerPrefs.HasKey("bestScore")) {
-			PlayerPrefs.SetInt("bestScore", 0);
-		}
-	}
-
 	void Start () {
 		SetDefaults();
 			
@@ -35,7 +29,10 @@ public class PlayerMovement : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0)) {
-			move = true;
+			if (!dead) {
+				GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>().ShowGameplayUI();
+				move = true;
+			}
 		}
 
 
@@ -57,6 +54,15 @@ public class PlayerMovement : MonoBehaviour {
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.tag == "Object") {
 			Die();
+		} else if (other.gameObject.tag == "BonusPoint") {
+			if (other.GetComponent<Coin>()) {
+				int coins = PlayerPrefs.GetInt("coins");
+				coins++;
+				PlayerPrefs.SetInt("coins", coins);
+				GameObject gameplayUI = GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>().gameplayUI;
+				gameplayUI.GetComponent<GameplayUI>().ShowCoinWrapper();
+			}
+			other.gameObject.SetActive(false);
 		}
 	}
 
@@ -70,13 +76,18 @@ public class PlayerMovement : MonoBehaviour {
 
 	}
 
-	public void Restart() {
+	public void Restart(bool _move) {
 		SetDefaults();
 		GameObject.Find("Object Spawner").gameObject.GetComponent<ObjectSpawner>().CreateClouds();
 		GameObject.Find("Background Spawner").gameObject.GetComponent<BGSpawner>().CreateBackgrounds();
 		transform.position = new Vector3(0f, transform.position.y, 0f);
-		gameObject.GetComponent<TrailRenderer>().Clear();
-		move = true;
+		transform.FindChild("Trail").GetComponent<TrailRenderer>().Clear();
+		bonusScore = 0;
+		move = _move;
+	}
+
+	public void Reset() {
+		Restart(false);
 	}
 
 	void SetDefaults() {
