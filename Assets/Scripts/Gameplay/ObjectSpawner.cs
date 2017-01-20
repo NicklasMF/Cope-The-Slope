@@ -18,7 +18,7 @@ public class ObjectSpawner : MonoBehaviour {
 		objects = GameObject.FindGameObjectsWithTag("Object");
 		collectables = GameObject.FindGameObjectsWithTag("BonusPoint");
 		SetMinAndMaxX();
-		CreateClouds();
+		CreateObjects();
 	}
 
 	void Shuffle(GameObject[] arrayToShuffle) {
@@ -30,7 +30,7 @@ public class ObjectSpawner : MonoBehaviour {
 		}
 	}
 
-	public void CreateClouds() {
+	public void CreateObjects() {
 		Shuffle(objects);
 		float positionZ = 10f;
 		for (int i = 0; i < objects.Length; i++) {
@@ -47,8 +47,9 @@ public class ObjectSpawner : MonoBehaviour {
 		float positionZ = 30f;
 		for (int i = 0; i < collectables.Length; i++) {
 			Vector3 temp = collectables[i].transform.position;
-			temp = new Vector3(Random.Range(minX, maxX), 0, positionZ + Random.Range(collectableDistance, collectableDistance * 2));
-			lastCollectablePositionZ = positionZ;
+			float newZ = positionZ + Random.Range(collectableDistance, collectableDistance * 2);
+			temp = new Vector3(Random.Range(minX, maxX), 0, newZ);
+			lastCollectablePositionZ = newZ;
 			collectables[i].transform.position = temp;
 			positionZ += Random.Range(collectableDistance, collectableDistance * 2);
 		}
@@ -84,13 +85,12 @@ public class ObjectSpawner : MonoBehaviour {
 			}
 		} else if (other.tag == "BonusPoint") {
 			if (other.transform.position.z == lastCollectablePositionZ) {
-				Debug.Log("Bonus");
 				Vector3 temp = other.transform.position;
 
 				for (int i = 0; i<collectables.Length; i++) {
 					if (!collectables[i].activeInHierarchy) {
 
-						temp.z = Random.Range(collectableDistance, collectableDistance * 2);
+						temp.z += Random.Range(collectableDistance, collectableDistance * 2);
 						temp.x = Random.Range(minX, maxX);
 						temp.y = 0;
 
@@ -100,11 +100,8 @@ public class ObjectSpawner : MonoBehaviour {
 
 					}
 				}
-
-
 			}
 		}
-
 	}
 
 }

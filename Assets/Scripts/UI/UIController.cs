@@ -49,6 +49,7 @@ public class UIController : MonoBehaviour {
 		gameOverScene.SetActive(false);
 		GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().Reset();
 		StartCoroutine(mainMenu.GetComponent<UI_MainMenu>().ShowFinger(3f));
+		mainMenu.GetComponent<UI_MainMenu>().UpdateScore();
 	}
 
 }

@@ -11,6 +11,9 @@ public class PlayerMovement : MonoBehaviour {
 	public bool isReadyToPlay = false;
 	public bool dead = false;
 
+	[SerializeField] GameObject smokeTrail;
+	GameObject[] smokeTrails;
+
 	public int score;
 	private int bonusScore;
 
@@ -22,9 +25,12 @@ public class PlayerMovement : MonoBehaviour {
 
 	void Start () {
 		SetDefaults();
-			
+		smokeTrails = GameObject.FindGameObjectsWithTag("TrailDust");
+		foreach(GameObject trail in smokeTrails) {
+			trail.SetActive(false);
+		}
 		isReadyToPlay = true;
-}
+	}
 	
 	// Update is called once per frame
 	void Update () {
@@ -45,11 +51,41 @@ public class PlayerMovement : MonoBehaviour {
 			Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 			diff = ray.origin.x - transform.position.x;
 
-			//Debug.Log(Mathf.Abs(diff));
 			transform.Translate(new Vector3(diff * 0.05f ,0, speed * Time.deltaTime));
+
+			if (speed > 3f) {
+				if (diff > 8) {
+					foreach(GameObject trail in smokeTrails) {
+						if (trail.activeSelf == false) {
+							trail.transform.position = transform.position + new Vector3(1f,0,1f);
+							Vector3 rot = trail.transform.rotation.eulerAngles;
+							rot = new Vector3(rot.x,295,rot.z);
+							trail.transform.rotation = Quaternion.Euler(rot);
+							trail.SetActive(true);
+							break;
+						}
+					}
+					speed -= 0.4f;
+				} else if (diff < -8) {
+					foreach(GameObject trail in smokeTrails) {
+						if (trail.activeSelf == false) {
+							trail.transform.position = transform.position + new Vector3(2f,0,1f);
+							Vector3 rot = trail.transform.rotation.eulerAngles;
+							rot = new Vector3(rot.x,75,rot.z);
+							trail.transform.rotation = Quaternion.Euler(rot);
+							trail.SetActive(true);
+							break;
+						}
+					}
+					speed -= 0.4f;
+				}
+			}
+
 		}
 		score = bonusScore + (int) (transform.position.z / 10);
+
 	}
+
 
 	void OnTriggerEnter(Collider other) {
 		if (other.gameObject.tag == "Object") {
@@ -78,7 +114,7 @@ public class PlayerMovement : MonoBehaviour {
 
 	public void Restart(bool _move) {
 		SetDefaults();
-		GameObject.Find("Object Spawner").gameObject.GetComponent<ObjectSpawner>().CreateClouds();
+		GameObject.Find("Object Spawner").gameObject.GetComponent<ObjectSpawner>().CreateObjects();
 		GameObject.Find("Background Spawner").gameObject.GetComponent<BGSpawner>().CreateBackgrounds();
 		transform.position = new Vector3(0f, transform.position.y, 0f);
 		transform.FindChild("Trail").GetComponent<TrailRenderer>().Clear();
