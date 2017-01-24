@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+namespace Arcade {
 public class ObjectSpawner : MonoBehaviour {
 
 
@@ -104,4 +105,5 @@ public class ObjectSpawner : MonoBehaviour {
 		}
 	}
 
+}
 }

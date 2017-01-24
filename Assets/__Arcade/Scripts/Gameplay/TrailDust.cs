@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+namespace Arcade {
 public class TrailDust : MonoBehaviour {
 
 	void OnEnable() {
@@ -13,4 +14,5 @@ public class TrailDust : MonoBehaviour {
 
 		gameObject.SetActive(false);
 	}
+}
 }

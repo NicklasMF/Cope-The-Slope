@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+namespace Arcade {
 public class CameraScript : MonoBehaviour {
 
 	public GameObject player;
@@ -14,4 +15,5 @@ public class CameraScript : MonoBehaviour {
 		transform.position = new Vector3(transform.position.x, transform.position.y, player.transform.position.z + offset.z);
 	}
 
+}
 }

@@ -2,7 +2,8 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class GameOverController : MonoBehaviour {
+namespace Career {
+public class UI_GameOver : MonoBehaviour {
 
 	[SerializeField] Text txtScore;
 	[SerializeField] Text txtBest;
@@ -18,8 +19,9 @@ public class GameOverController : MonoBehaviour {
 	}
 
 	public void RestartGame() {
-		GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().Restart(true);
+		GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().Restart();
 		gameObject.SetActive(false);
 		GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>().gameplayUI.SetActive(true);
 	}
+}
 }

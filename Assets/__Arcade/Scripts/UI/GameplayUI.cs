@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
+namespace Arcade {
 public class GameplayUI : MonoBehaviour {
 
 	[SerializeField] Text txtScore;
@@ -27,4 +28,5 @@ public class GameplayUI : MonoBehaviour {
 		coinWrapper.SetActive(false);
 	}
 
+}
 }

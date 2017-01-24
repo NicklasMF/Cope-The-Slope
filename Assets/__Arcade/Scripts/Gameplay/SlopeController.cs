@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+namespace Arcade {
 public class SlopeController : MonoBehaviour {
 
 	public GameObject player;
@@ -18,4 +19,5 @@ public class SlopeController : MonoBehaviour {
 
 	}
 
+}
 }

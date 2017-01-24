@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
+namespace Arcade {
 public class UI_MainMenu : MonoBehaviour {
 
 	[SerializeField] Text txtCoins;
@@ -26,4 +27,5 @@ public class UI_MainMenu : MonoBehaviour {
 		txtCoins.text = PlayerPrefs.GetInt("coins").ToString();
 	}
 	
+}
 }

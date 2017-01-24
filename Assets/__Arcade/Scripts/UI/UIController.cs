@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
+namespace Arcade {
 public class UIController : MonoBehaviour {
 
 	public GameObject mainMenu;
@@ -52,4 +53,5 @@ public class UIController : MonoBehaviour {
 		mainMenu.GetComponent<UI_MainMenu>().UpdateScore();
 	}
 
+}
 }

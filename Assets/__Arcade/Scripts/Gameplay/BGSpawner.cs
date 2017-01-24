@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+namespace Arcade {
 public class BGSpawner : MonoBehaviour {
 
 	GameObject[] backgrounds;
@@ -53,4 +54,5 @@ public class BGSpawner : MonoBehaviour {
 		}
 	}
 
+}
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+namespace Arcade {
 public class FitAspectRatio : MonoBehaviour {
 
 	[SerializeField] GameObject slopeBlock;
@@ -12,4 +13,5 @@ public class FitAspectRatio : MonoBehaviour {
 		//gameObject.transform.localScale = new Vector3(width, 1f, width);
 
 	}
+}
 }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+namespace Arcade {
 public class ObjectCollector : MonoBehaviour {
 
 	void OnTriggerEnter(Collider coll) {
@@ -8,4 +9,5 @@ public class ObjectCollector : MonoBehaviour {
 			coll.gameObject.SetActive(false);
 		}
 	}
+}
 }
