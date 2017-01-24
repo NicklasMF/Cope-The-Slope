@@ -4,9 +4,11 @@ using System.Collections;
 namespace Career {
 public class UIController : MonoBehaviour {
 
-		public GameObject mainMenu;
-		public GameObject gameOverScene;
-		public GameObject gameplayUI;
+		[SerializeField] GameObject uiMenu;
+		[SerializeField] GameObject uiMainMenu;
+		[SerializeField] GameObject uiSectionPlay;
+		[SerializeField] GameObject uiGameOverScene;
+		[SerializeField] GameObject uiGameplay;
 
 		void Awake() {
 			if (!PlayerPrefs.HasKey("bestScore")) {
@@ -19,33 +21,45 @@ public class UIController : MonoBehaviour {
 		}
 
 		void Start() {
-			if (gameOverScene.activeSelf == true) {
-				gameOverScene.SetActive(false);
-			}
-			if (gameplayUI.activeSelf == true) {
-				gameplayUI.SetActive(false);
-			}
+			HideAll();
 
-			mainMenu.SetActive(true);
-			//StartCoroutine(mainMenu.GetComponent<UI_MainMenu>().ShowFinger(0f));
+			uiMenu.SetActive(true);
+			uiMainMenu.SetActive(true);
+		}
+
+		void HideAllMenus() {
+			uiMainMenu.SetActive(false);
+			uiSectionPlay.SetActive(false);
+		}
+
+		void HideAll() {
+			HideAllMenus();
+			uiMenu.SetActive(false);
+			uiGameOverScene.SetActive(false);
+			uiGameplay.SetActive(false);
+		}
+
+		public void ShowSectionPlay() {
+			HideAllMenus();
+			uiSectionPlay.SetActive(true);
 		}
 
 		public void ShowGameOverScene(int score) {
-			gameplayUI.SetActive(false);
-			gameOverScene.SetActive(true);
-			gameOverScene.GetComponent<UI_GameOver>().SetGameOverScene(score);
+			uiGameplay.SetActive(false);
+			uiGameOverScene.SetActive(true);
+			uiGameOverScene.GetComponent<UI_GameOver>().SetGameOverScene(score);
 		}
 
 		public void ShowGameplayUI() {
-			mainMenu.SetActive(false);
-			gameplayUI.SetActive(true);
-			gameOverScene.SetActive(false);
+			uiMenu.SetActive(false);
+			uiGameplay.SetActive(true);
+			uiGameOverScene.SetActive(false);
 		}
 
 		public void ShowMainMenu() {
-			mainMenu.SetActive(true);
-			gameplayUI.SetActive(false);
-			gameOverScene.SetActive(false);
+			uiMenu.SetActive(true);
+			uiGameplay.SetActive(false);
+			uiGameOverScene.SetActive(false);
 			GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().Reset();
 			//StartCoroutine(mainMenu.GetComponent<UI_MainMenu>().ShowFinger(3f));
 			//mainMenu.GetComponent<UI_MainMenu>().UpdateScore();

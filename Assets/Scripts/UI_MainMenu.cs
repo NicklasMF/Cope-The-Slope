@@ -6,24 +6,17 @@ namespace Career {
 	public class UI_MainMenu : MonoBehaviour {
 
 		[SerializeField] Text txtCoins;
-		[SerializeField] Text txtBestScore;
-		[SerializeField] GameObject imgFinger;
-
+		[SerializeField] Text txtDiamonds;
+		[SerializeField] Text txtPlayername;
 
 		// Use this for initialization
 		void Start () {
 			UpdateScore();
 		}
 
-		public IEnumerator ShowFinger(float _seconds) {
-			imgFinger.SetActive(false);
-			yield return new WaitForSeconds(_seconds);
-
-			imgFinger.SetActive(true);
-		}
-
 		public void UpdateScore() {
-			txtBestScore.text = PlayerPrefs.GetInt("bestScore").ToString();
+			txtPlayername.text = PlayerPrefs.GetString("playername").ToString();
+			txtDiamonds.text = PlayerPrefs.GetInt("diamonds").ToString();
 			txtCoins.text = PlayerPrefs.GetInt("coins").ToString();
 		}
 

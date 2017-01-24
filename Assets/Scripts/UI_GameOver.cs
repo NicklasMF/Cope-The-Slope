@@ -21,7 +21,7 @@ public class UI_GameOver : MonoBehaviour {
 	public void RestartGame() {
 		GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>().Restart();
 		gameObject.SetActive(false);
-		GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>().gameplayUI.SetActive(true);
+		//GameObject.FindGameObjectWithTag("UIController").GetComponent<UIController>().gameplayUI.SetActive(true);
 	}
 }
 }

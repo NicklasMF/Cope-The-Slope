@@ -81,7 +81,7 @@ namespace Career {
 				//transform.Translate(new Vector3(diff * 0.05f ,0, speed * Time.deltaTime));
 
 				// Hvis man misser en port //
-				if (portArray.Length < portsReached) {
+				if (portArray.Length != portsReached) {
 					if (transform.position.z - 3 > portArray[portsReached].transform.position.z) {
 						Debug.Log("Dead");
 						Die();
