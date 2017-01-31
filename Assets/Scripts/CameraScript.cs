@@ -4,15 +4,20 @@ using System.Collections;
 namespace Career {
 	public class CameraScript : MonoBehaviour {
 
-		public GameObject player;
+		GameObject player;
 		Vector3 offset;
 
 		void Start() {
-			offset = transform.position - player.transform.position;
+			player = GameObject.FindGameObjectWithTag("Player");
+			if (player != null) {
+				offset = transform.position - player.transform.position;
+			}
 		}
 
 		void LateUpdate() {
-			transform.position = new Vector3(transform.position.x, transform.position.y, player.transform.position.z + offset.z);
+			if (player != null) {
+				transform.position = new Vector3(transform.position.x, transform.position.y, player.transform.position.z + offset.z);
+			}
 		}
 
 	}

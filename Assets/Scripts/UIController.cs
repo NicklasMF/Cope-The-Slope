@@ -10,16 +10,6 @@ public class UIController : MonoBehaviour {
 		[SerializeField] GameObject uiGameOverScene;
 		[SerializeField] GameObject uiGameplay;
 
-		void Awake() {
-			if (!PlayerPrefs.HasKey("bestScore")) {
-				PlayerPrefs.SetInt("bestScore", 0);
-			}
-
-			if (!PlayerPrefs.HasKey("coins")) {
-				PlayerPrefs.SetInt("coins", 0);
-			}
-		}
-
 		void Start() {
 			HideAll();
 
