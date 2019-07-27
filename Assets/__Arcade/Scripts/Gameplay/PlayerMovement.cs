@@ -118,7 +118,7 @@ namespace Arcade {
 			GameObject.Find("Object Spawner").gameObject.GetComponent<ObjectSpawner>().CreateObjects();
 			GameObject.Find("Background Spawner").gameObject.GetComponent<BGSpawner>().CreateBackgrounds();
 			transform.position = new Vector3(0f, transform.position.y, 0f);
-			transform.FindChild("Trail").GetComponent<TrailRenderer>().Clear();
+			transform.Find("Trail").GetComponent<TrailRenderer>().Clear();
 			bonusScore = 0;
 			move = _move;
 		}

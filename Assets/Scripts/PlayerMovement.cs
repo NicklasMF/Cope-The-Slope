@@ -107,7 +107,7 @@ namespace Career {
 		public void Restart() {
 			SetDefaults();
 			transform.position = new Vector3(0f, transform.position.y, 0f);
-			transform.FindChild("Trail").GetComponent<TrailRenderer>().Clear();
+			transform.Find("Trail").GetComponent<TrailRenderer>().Clear();
 			time = 0f;
 			portsReached = 0;
 			move = false;
